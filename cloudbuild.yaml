@@ -1,20 +1,50 @@
 steps:
+
+  # Substitute the version
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args: ["-c", "sed -i 's/%VERSION%/'$TAG_NAME'/g' setup.cfg"]
+    
   # Install dependencies
-  - name: python
+  - name: python:3.9-buster
     entrypoint: pip
     args: ["install", "-r", "requirements.txt", "--user"]
 
   # Run unit tests
-  - name: python
+  - name: python:3.9-buster
     entrypoint: python
-    args: ["-m", "pytest", "--junitxml=${SHORT_SHA}_test_log.xml"]
+    args: ["-m", "tox"]
 
-# Save test logs to Google Cloud Storage
-artifacts:
-  objects:
-    location: gs://${_BUCKET_NAME}/
-    paths:
-      - ${SHORT_SHA}_test_log.xml
+  # Capture results
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
+
+  # Publish logs
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+    - '-c'
+    - |
+        if [ $PROJECT_ID == "alexei-dev" ]
+        then
+          echo "${_LOG_BUCKET_DEV}" > log_bucket
+        fi
+
+        if [ $PROJECT_ID == "alexei-qa" ]
+        then
+          echo "${_LOG_BUCKET_QA}" > log_bucket
+        fi
+
+        ls -la
+
+        echo "Establishing logs bucket..."
+        cat ./log_bucket
+
+substitutions:
+  _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
+  _LOG_BUCKET_QA: logs-j4tztbeljefbpvo
+
 # Store images in Google Artifact Registry 
-images:
-  - us-central1-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}
+# images:
+#   - us-central1-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}
