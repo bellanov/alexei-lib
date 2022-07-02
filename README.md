@@ -1,4 +1,4 @@
-# Alexei Python Library
+# alexei_lib
 
 Python library for `Alexei`.
 
