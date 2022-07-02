@@ -2,10 +2,10 @@
 
 import pytest
 
-from alexei_lib import alexei
+from alexei_lib.terraform import bootstrap
 
 
 @pytest.mark.unit
 def test_package():
     """Validate package is importable"""
-    assert alexei.hello_alexei() == "Hello Alexei!"
+    bootstrap.bootstrap_terraform_project()

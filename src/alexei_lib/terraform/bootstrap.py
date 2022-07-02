@@ -1,5 +1,10 @@
 """Bootstrap Terraform Projects."""
 
 
-def hello_terraform():
-    return "Hello Alexei!"
+def bootstrap_terraform_project():
+    """Bootstrap a Terraform project."""
+    # Grab template
+
+    # dev
+    # qa
+    # prod
