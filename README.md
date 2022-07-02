@@ -1,6 +1,6 @@
-# Python Template
+# alexei_lib
 
-Template for general `Python` development.
+Python library for `Alexei`.
 
 ## Requirements
 
