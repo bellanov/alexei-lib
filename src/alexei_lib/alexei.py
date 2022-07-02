@@ -1,5 +1,5 @@
 """Simple Python Program."""
 
 
-def hello_world():
+def hello_alexei():
     return "Hello Alexei!"
