@@ -2,10 +2,10 @@
 
 import pytest
 
-from src.alexei import hello
+from alexei_lib import alexei
 
 
 @pytest.mark.unit
 def test_hello():
     """Validate package is importable"""
-    assert hello.hello_world() == "Hello World!"
+    assert alexei.hello_world() == "Hello Alexei!"
