@@ -15,8 +15,8 @@ First, a local project environment needs to be created, then the project's modul
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/bellanov/python-template.git
-   cd python-template
+   git clone https://github.com/bellanov/alexei-lib.git
+   cd alexei-lib
    ```
 
 1. Create a virtual environment with the appropriate `Python` interpreter:
@@ -31,7 +31,7 @@ First, a local project environment needs to be created, then the project's modul
    $ source venv/bin/activate
 
    $ which python
-   /path/to/python-template/venv/bin/python
+   /path/to/alexei-lib/venv/bin/python
 
    $ python --version
    Python 3.8
