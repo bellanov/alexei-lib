@@ -7,7 +7,7 @@ steps:
   # Run unit tests
   - name: python
     entrypoint: python
-    args: ["-m", "pytest", "--junitxml=${SHORT_SHA}_test_log.xml"]
+    args: ["-m", "tox"]
 
 # Save test logs to Google Cloud Storage
 artifacts:
