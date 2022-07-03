@@ -1,11 +1,11 @@
 steps:
   # Install dependencies
-  - name: Install
+  - name: install
     entrypoint: pip
     args: ["install", "-r", "requirements.txt", "--user"]
 
   # Run unit tests
-  - name: Tests
+  - name: tests
     entrypoint: python
     args: ["-m", "tox"]
 
