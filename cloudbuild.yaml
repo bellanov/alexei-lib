@@ -12,7 +12,7 @@ steps:
   # Capture results
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
-    args: ["cp", "coverage/junit.xml", "${SHORT_SHA}_test_log.xml"]
+    args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
 
   # - name: 'gcr.io/cloud-builders/gcloud'
   #   entrypoint: bash
