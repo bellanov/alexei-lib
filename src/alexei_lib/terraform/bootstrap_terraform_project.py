@@ -1,5 +1,6 @@
 """Bootstrap Terraform Projects."""
 
 
-def hello_terraform():
+def bootstrap_terraform_project():
+    """"""
     return "Hello Alexei!"
