@@ -9,7 +9,6 @@ steps:
     entrypoint: bash
     args: ["-c", "sed -i 's/%VERSION%/'$TAG_NAME'/g' setup.cfg"]
 
-
   # Run unit tests
   - name: python
     entrypoint: python
@@ -19,14 +18,6 @@ steps:
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
-
-  # - name: 'gcr.io/cloud-builders/gcloud'
-  #   entrypoint: bash
-  #   args:
-  #   - '-c'
-  #   - |
-  #   sed -i 's/%SECRET_KEY%/'${_SECRET_KEY}'/g' app.yaml
-  #   gcloud app deploy  app.yaml
 
 # Save test logs to Google Cloud Storage
 artifacts:
