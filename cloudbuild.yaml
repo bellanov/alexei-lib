@@ -35,7 +35,7 @@ steps:
           echo "${_LOG_BUCKET_QA}" > log_bucket
         fi
 
-        echo "${cat log_bucket}"
+        ls -la
 
   # Publish logs
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
