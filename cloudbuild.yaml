@@ -27,13 +27,15 @@ steps:
     - |
         if [ $PROJECT_ID == "alexei-dev" ]
         then
-          echo "Hi dev!"
+          echo "${_LOG_BUCKET_DEV}" > log_bucket
         fi
 
         if [ $PROJECT_ID == "alexei-qa" ]
         then
-          echo "Hi qa!"
+          echo "${_LOG_BUCKET_QA}" > log_bucket
         fi
+
+        echo ${cat log_bucket}
 
   # Publish logs
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
