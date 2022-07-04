@@ -19,6 +19,21 @@ steps:
     entrypoint: bash
     args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
 
+  # Publish results
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
+    args:
+    - '-c'
+    - |
+        if [ $PROJECT_ID == "alexei-dev" ]
+        then
+          echo "Hi dev!"
+        fi
+
+        if [ $PROJECT_ID == "alexei-qa" ]
+        then
+          echo "Hi qa!"
+        fi
 # Save test logs to Google Cloud Storage
 artifacts:
   objects:
