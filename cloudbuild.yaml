@@ -38,7 +38,7 @@ steps:
 
         ls -la
         gsutil --version
-        cat log_bucket
+        cat "./log_bucket"
         export test=test
 
 substitutions:
