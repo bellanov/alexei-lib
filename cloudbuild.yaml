@@ -38,8 +38,7 @@ steps:
 
         ls -la
         gsutil --version
-        cat "./log_bucket"
-        export test=test
+        echo ${cat "./log_bucket"}
 
 substitutions:
   _BUCKET_NAME: logs-hmjbvyp8eqyefrh
