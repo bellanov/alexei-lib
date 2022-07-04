@@ -19,7 +19,7 @@ steps:
     entrypoint: bash
     args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
 
-  # Publish results
+  # Set log location
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args:
@@ -34,6 +34,12 @@ steps:
         then
           echo "Hi qa!"
         fi
+
+  # Publish logs
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gsutil'
+    args: ["--version"]
+
 # Save test logs to Google Cloud Storage
 artifacts:
   objects:
@@ -43,7 +49,8 @@ artifacts:
 
 substitutions:
   _BUCKET_NAME: logs-hmjbvyp8eqyefrh
-  # logs-j4tztbeljefbpvo
+  _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
+  _LOG_BUCKET_QA: logs-j4tztbeljefbpvo
 
 # Store images in Google Artifact Registry 
 # images:
