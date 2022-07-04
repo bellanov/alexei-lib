@@ -20,7 +20,7 @@ steps:
     args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
 
   # Publish logs
-  - name: gcr.io/cloud-builders/cloud-sdk
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: bash
     args:
     - '-c'
