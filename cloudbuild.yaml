@@ -30,11 +30,13 @@ steps:
     - |
         if [ $PROJECT_ID == "alexei-dev" ] 
         then 
-          export LOG_BUCKET=logs-hmjbvyp8eqyefrh
+          echo "Hi dev!"
         fi
 
-        echo $PROJECT_ID
-        echo $LOG_BUCKET
+        if [ $PROJECT_ID == "alexei-qa" ] 
+        then 
+          echo "Hi qa!"
+        fi
 
 # Save test logs to Google Cloud Storage
 artifacts:
