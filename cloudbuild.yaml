@@ -44,12 +44,8 @@ steps:
         echo "$${_LOG_BUCKET}"
 
         echo "Publishing test results..."
-        gsutil cp *.txt gs://$${_LOG_BUCKET}
+        gsutil cp ${SHORT_SHA}_test_log.xml gs://$${_LOG_BUCKET}
 
 substitutions:
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
   _LOG_BUCKET_QA: logs-j4tztbeljefbpvo
-
-# Store images in Google Artifact Registry 
-# images:
-#   - us-central1-docker.pkg.dev/${PROJECT_ID}/${_ARTIFACT_REGISTRY_REPO}/myimage:${SHORT_SHA}
