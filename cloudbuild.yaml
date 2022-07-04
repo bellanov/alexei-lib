@@ -18,25 +18,6 @@ steps:
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
-  
-  # Set log bucket for the environment
-  - name: 'gcr.io/cloud-builders/gcloud'
-    id: logging
-    entrypoint: bash
-    env:
-    - 'PROJECT_ID=$PROJECT_ID'
-    args: 
-    - '-c'
-    - |
-        if [ $PROJECT_ID == "alexei-dev" ] 
-        then 
-          echo "Hi dev!"
-        fi
-
-        if [ $PROJECT_ID == "alexei-qa" ] 
-        then 
-          echo "Hi qa!"
-        fi
 
 # Save test logs to Google Cloud Storage
 artifacts:
@@ -47,6 +28,7 @@ artifacts:
 
 substitutions:
   _BUCKET_NAME: logs-hmjbvyp8eqyefrh
+  # logs-j4tztbeljefbpvo
 
 # Store images in Google Artifact Registry 
 # images:
