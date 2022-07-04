@@ -19,8 +19,8 @@ steps:
     entrypoint: bash
     args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
 
-  # Set log location
-  - name: gcr.io/cloud-builders/gcloud
+  # Publish logs
+  - name: gcr.io/cloud-builders/cloud-sdk
     entrypoint: bash
     args:
     - '-c'
