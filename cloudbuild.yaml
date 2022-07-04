@@ -1,8 +1,7 @@
 steps:
 
   # Substitute the version
-  - id: Versioning
-    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: bash
     args: ["-c", "sed -i 's/%VERSION%/'$TAG_NAME'/g' setup.cfg"]
     
