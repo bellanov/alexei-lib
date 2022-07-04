@@ -1,13 +1,14 @@
 steps:
-  # Install dependencies
-  - name: python:3.9-buster
-    entrypoint: pip
-    args: ["install", "-r", "requirements.txt", "--user"]
 
   # Substitute the version
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: bash
     args: ["-c", "sed -i 's/%VERSION%/'$TAG_NAME'/g' setup.cfg"]
+    
+  # Install dependencies
+  - name: python:3.9-buster
+    entrypoint: pip
+    args: ["install", "-r", "requirements.txt", "--user"]
 
   # Run unit tests
   - name: python:3.9-buster
