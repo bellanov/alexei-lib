@@ -1,6 +1,6 @@
 steps:
   # Install dependencies
-  - name: python
+  - name: python:3.9-buster
     entrypoint: pip
     args: ["install", "-r", "requirements.txt", "--user"]
 
@@ -10,7 +10,7 @@ steps:
     args: ["-c", "sed -i 's/%VERSION%/'$TAG_NAME'/g' setup.cfg"]
 
   # Run unit tests
-  - name: python
+  - name: python:3.9-buster
     entrypoint: python
     args: ["-m", "tox"]
 
