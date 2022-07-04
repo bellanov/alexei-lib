@@ -1,7 +1,7 @@
 steps:
 
   # Substitute the version
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: bash
     args: ["-c", "sed -i 's/%VERSION%/'$TAG_NAME'/g' setup.cfg"]
     
@@ -16,7 +16,7 @@ steps:
     args: ["-m", "tox"]
 
   # Capture results
-  - name: gcr.io/cloud-builders/gcloud
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     entrypoint: bash
     args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
 
