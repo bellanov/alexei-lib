@@ -28,12 +28,14 @@ steps:
     - |
         if [ $PROJECT_ID == "alexei-dev" ]
         then
-          echo "${_LOG_BUCKET_DEV}" > log_bucket
+          export LOG_BUCKET="${_LOG_BUCKET_DEV}"
+          echo $LOG_BUCKET
         fi
 
         if [ $PROJECT_ID == "alexei-qa" ]
         then
-          echo "${_LOG_BUCKET_QA}" > log_bucket
+          export LOG_BUCKET="${_LOG_BUCKET_QA}"
+          echo $LOG_BUCKET
         fi
 
         ls -la
