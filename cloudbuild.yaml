@@ -40,10 +40,10 @@ steps:
         echo ${SHORT_SHA}_test_log.xml
 
         echo "Establishing logs bucket..."
-        cat ./log_bucket
-
         _LOG_BUCKET=$(cat log_bucket)
         echo "$${_LOG_BUCKET}"
+
+        echo "Publishing tets results..."
 
 substitutions:
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
