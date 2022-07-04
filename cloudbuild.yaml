@@ -28,12 +28,12 @@ steps:
     - |
         if [ $PROJECT_ID == "alexei-dev" ]
         then
-          echo "${_LOG_BUCKET_DEV}" > log_bucket
+          echo "${_LOG_BUCKET_DEV}" > log_bucket.txt
         fi
 
         if [ $PROJECT_ID == "alexei-qa" ]
         then
-          echo "${_LOG_BUCKET_QA}" > log_bucket
+          echo "${_LOG_BUCKET_QA}" > log_bucket.txt
         fi
 
         echo "Establishing test results..."
@@ -42,10 +42,8 @@ steps:
         echo "Establishing logs bucket..."
         cat ./log_bucket
 
-  # Publish results
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
-    entrypoint: gsutil
-    args: ["cp", "${SHORT_SHA}_test_log.xml", "gs://$(cat log_file)"]
+        _id=$(cat log_bucket.txt)
+        echo "$${_id}"
 
 substitutions:
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
