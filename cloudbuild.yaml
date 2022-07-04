@@ -37,10 +37,11 @@ steps:
         fi
 
         ls -la
+
+        echo "Establishing logs bucket..."
         cat ./log_bucket
 
 substitutions:
-  _BUCKET_NAME: logs-hmjbvyp8eqyefrh
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
   _LOG_BUCKET_QA: logs-j4tztbeljefbpvo
 
