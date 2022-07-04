@@ -28,12 +28,12 @@ steps:
     - |
         if [ $PROJECT_ID == "alexei-dev" ]
         then
-          echo "${_LOG_BUCKET_DEV}" > log_bucket.txt
+          echo "${_LOG_BUCKET_DEV}" > log_bucket
         fi
 
         if [ $PROJECT_ID == "alexei-qa" ]
         then
-          echo "${_LOG_BUCKET_QA}" > log_bucket.txt
+          echo "${_LOG_BUCKET_QA}" > log_bucket
         fi
 
         echo "Establishing test results..."
@@ -42,7 +42,7 @@ steps:
         echo "Establishing logs bucket..."
         cat ./log_bucket
 
-        _id=$(cat log_bucket.txt)
+        _id=$(cat log_bucket)
         echo "$${_id}"
 
 substitutions:
