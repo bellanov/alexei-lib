@@ -1,7 +1,8 @@
 steps:
 
   # Substitute the version
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  - id: Versioning
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: bash
     args: ["-c", "sed -i 's/%VERSION%/'$TAG_NAME'/g' setup.cfg"]
     
@@ -20,7 +21,7 @@ steps:
     entrypoint: bash
     args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
 
-  # Set log bucket
+  # Publish results
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: bash
     args:
@@ -43,7 +44,7 @@ steps:
         _LOG_BUCKET=$(cat log_bucket)
         echo "$${_LOG_BUCKET}"
 
-        echo "Publishing tets results..."
+        echo "Publishing test results..."
 
 substitutions:
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
