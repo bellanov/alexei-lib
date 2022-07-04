@@ -38,7 +38,7 @@ steps:
 
         ls -la
         gsutil --version
-        echo ${cat "./log_bucket"}
+        echo ${"cat ./log_bucket"}
 
 substitutions:
   _BUCKET_NAME: logs-hmjbvyp8eqyefrh
