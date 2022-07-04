@@ -42,8 +42,8 @@ steps:
         echo "Establishing logs bucket..."
         cat ./log_bucket
 
-        _id=$(cat log_bucket)
-        echo "$${_id}"
+        _LOG_BUCKET=$(cat log_bucket)
+        echo "$${_LOG_BUCKET}"
 
 substitutions:
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
