@@ -20,7 +20,7 @@ steps:
     entrypoint: bash
     args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
 
-  # Publish logs
+  # Set log bucket
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: bash
     args:
@@ -41,6 +41,11 @@ steps:
 
         echo "Establishing logs bucket..."
         cat ./log_bucket
+
+  # Publish results
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: gsutil
+    args: ["cp", "${SHORT_SHA}_test_log.xml", "gs://$(cat log_file)"]
 
 substitutions:
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
