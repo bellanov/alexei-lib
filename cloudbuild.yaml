@@ -36,6 +36,7 @@ steps:
         fi
 
         ls -la
+        gsutil --version
 
   # Publish logs
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
