@@ -28,18 +28,18 @@ steps:
     - |
         if [ $PROJECT_ID == "alexei-dev" ]
         then
-          export LOG_BUCKET="${_LOG_BUCKET_DEV}"
-          echo $LOG_BUCKET
+          echo "${_LOG_BUCKET_DEV}" > log_bucket
         fi
 
         if [ $PROJECT_ID == "alexei-qa" ]
         then
-          export LOG_BUCKET="${_LOG_BUCKET_QA}"
-          echo $LOG_BUCKET
+          echo "${_LOG_BUCKET_QA}" > log_bucket
         fi
 
         ls -la
         gsutil --version
+        cat log_bucket
+        export test=test
 
 substitutions:
   _BUCKET_NAME: logs-hmjbvyp8eqyefrh
