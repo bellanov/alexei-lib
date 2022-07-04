@@ -36,7 +36,8 @@ steps:
           echo "${_LOG_BUCKET_QA}" > log_bucket
         fi
 
-        ls -la
+        echo "Establishing test results..."
+        echo ${SHORT_SHA}_test_log.xml
 
         echo "Establishing logs bucket..."
         cat ./log_bucket
