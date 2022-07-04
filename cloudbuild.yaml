@@ -23,19 +23,23 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     id: logging
     entrypoint: bash
+    env:
+    - 'PROJECT_ID=$PROJECT_ID'
     args: 
     - '-c'
     - |
-        if [ $PROJECT_ID != "alexei-dev" ] 
+        if [ $PROJECT_ID == "alexei-dev" ] 
         then 
           export LOG_BUCKET=logs-hmjbvyp8eqyefrh
         fi
 
+        echo $PROJECT_ID
+        echo $LOG_BUCKET
+
 # Save test logs to Google Cloud Storage
 artifacts:
   objects:
-    location: gs://${LOG_BUCKET}/
-    # location: gs://${_BUCKET_NAME}/
+    location: gs://${_BUCKET_NAME}/
     paths:
       - ${SHORT_SHA}_test_log.xml
 
