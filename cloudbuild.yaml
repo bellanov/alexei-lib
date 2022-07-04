@@ -26,7 +26,7 @@ steps:
     args: 
     - '-c'
     - |
-        if [ $PROJECT_NAME != "alexei-dev" ] 
+        if [ $PROJECT_ID != "alexei-dev" ] 
         then 
           export LOG_BUCKET=logs-hmjbvyp8eqyefrh
         fi
