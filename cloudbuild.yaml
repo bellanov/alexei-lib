@@ -18,11 +18,24 @@ steps:
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
+  
+  # Set log bucket for the environment
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: logging
+    entrypoint: bash
+    args: 
+    - '-c'
+    - |
+        if [ $PROJECT_NAME != "alexei-dev" ] 
+        then 
+          export LOG_BUCKET=logs-hmjbvyp8eqyefrh
+        fi
 
 # Save test logs to Google Cloud Storage
 artifacts:
   objects:
-    location: gs://${_BUCKET_NAME}/
+    location: gs://${LOG_BUCKET}/
+    # location: gs://${_BUCKET_NAME}/
     paths:
       - ${SHORT_SHA}_test_log.xml
 
