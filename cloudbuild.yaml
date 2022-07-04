@@ -39,13 +39,6 @@ steps:
         ls -la
         gsutil --version
 
-# Save test logs to Google Cloud Storage
-artifacts:
-  objects:
-    location: gs://${_BUCKET_NAME}/
-    paths:
-      - ${SHORT_SHA}_test_log.xml
-
 substitutions:
   _BUCKET_NAME: logs-hmjbvyp8eqyefrh
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
