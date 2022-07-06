@@ -1,4 +1,4 @@
-"""Test Template."""
+"""Test Terraform Templates."""
 
 import pytest
 
