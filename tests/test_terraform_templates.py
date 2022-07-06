@@ -2,7 +2,7 @@
 
 import pytest
 
-from alexei_lib.terraform.templates.terraform_project import CLIENT, OUTPUT
+from alexei_lib.terraform.templates.client import CLIENT, OUTPUT
 
 
 @pytest.mark.unit
