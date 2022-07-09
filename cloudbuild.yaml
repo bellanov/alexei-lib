@@ -49,3 +49,4 @@ steps:
 substitutions:
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
   _LOG_BUCKET_QA: logs-j4tztbeljefbpvo
+  _LOG_BUCKET_PROD: logs-nfrjp2w3vyrt9xp
