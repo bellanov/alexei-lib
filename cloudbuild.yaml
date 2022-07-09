@@ -36,6 +36,11 @@ steps:
           echo "${_LOG_BUCKET_QA}" > log_bucket
         fi
 
+        if [ $PROJECT_ID == "alexei-prod" ]
+        then
+          echo "${_LOG_BUCKET_PROD}" > log_bucket
+        fi
+
         echo "Establishing test results..."
         echo ${SHORT_SHA}_test_log.xml
 
