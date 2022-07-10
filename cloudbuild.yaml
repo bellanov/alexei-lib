@@ -51,11 +51,6 @@ steps:
         echo "Publishing test results..."
         gsutil cp ${SHORT_SHA}_test_log.xml gs://$${_LOG_BUCKET}
 
-    # Build artifact
-  - name: python:3.9-buster
-    entrypoint: python
-    args: ["-m", "tox", "-e", "build"]
-
 substitutions:
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
   _LOG_BUCKET_QA: logs-j4tztbeljefbpvo
