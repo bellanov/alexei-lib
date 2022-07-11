@@ -62,34 +62,6 @@ steps:
         echo "Publishing release..."
         gsutil cp dist/alexei-lib-${TAG_NAME}.tar.gz gs://$${_RELEASE_BUCKET}
 
-  - id: Publish Release
-    name: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
-    entrypoint: bash
-    args:
-    - '-c'
-    - |
-        if [ $PROJECT_ID == "alexei-dev" ]
-        then
-          echo "${_LIBRARY_REGISTRY_DEV}" > release_registry
-        fi
-
-        if [ $PROJECT_ID == "alexei-qa" ]
-        then
-          echo "${_LIBRARY_REGISTRY_QA}" > release_registry
-        fi
-
-        if [ $PROJECT_ID == "alexei-prod" ]
-        then
-          echo "${_LIBRARY_REGISTRY_PROD}" > release_registry
-        fi
-
-        echo "Establishing release repository..."
-        _LIBRARY_REGISTRY=$(cat release_registry)
-        echo "$${_LIBRARY_REGISTRY}"
-
-        echo "Publishing release..."
-        ls -la dist/
-
 substitutions:
 
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
@@ -99,7 +71,3 @@ substitutions:
   _RELEASE_BUCKET_DEV: releases-tzq74vtfsacaprg
   _RELEASE_BUCKET_QA: releases-e7hc2mjcf4grgxd
   _RELEASE_BUCKET_PROD: releases-piclewkjpnv678n
-
-  _LIBRARY_REGISTRY_DEV: https://us-python.pkg.dev/alexei-dev/libraries/
-  _LIBRARY_REGISTRY_QA: https://us-python.pkg.dev/alexei-qa/libraries/
-  _LIBRARY_REGISTRY_PROD: https://us-python.pkg.dev/alexei-prod/libraries/
