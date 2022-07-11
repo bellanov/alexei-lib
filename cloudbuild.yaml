@@ -57,24 +57,25 @@ steps:
     - |
         if [ $PROJECT_ID == "alexei-dev" ]
         then
-          echo "${_LIBRARY_REPOS_DEV}" > release_repos
+          echo "${_LIBRARY_REGISTRY_DEV}" > release_registry
         fi
 
         if [ $PROJECT_ID == "alexei-qa" ]
         then
-          echo "${_LIBRARY_REPOS_QA}" > release_repos
+          echo "${_LIBRARY_REGISTRY_QA}" > release_registry
         fi
 
         if [ $PROJECT_ID == "alexei-prod" ]
         then
-          echo "${_LIBRARY_REPOS_PROD}" > release_repos
+          echo "${_LIBRARY_REGISTRY_PROD}" > release_registry
         fi
 
         echo "Establishing release repository..."
-        _LIBRARY_REPOS=$(cat release_repos)
-        echo "$${_LIBRARY_REPOS}"
+        _LIBRARY_REGISTRY=$(cat release_registry)
+        echo "$${_LIBRARY_REGISTRY}"
 
         echo "Publishing release..."
+        twine upload --repository-url "$${_LIBRARY_REGISTRY}" dist/*
 
 substitutions:
 
@@ -82,6 +83,6 @@ substitutions:
   _LOG_BUCKET_QA: logs-j4tztbeljefbpvo
   _LOG_BUCKET_PROD: logs-nfrjp2w3vyrt9xp
 
-  _LIBRARY_REPOS_DEV: path_to_dev_repos
-  _LIBRARY_REPOS_QA: path_to_qa_repos
-  _LIBRARY_REPOS_PROD: path_to_prod_repos
+  _LIBRARY_REGISTRY_DEV: https://us-python.pkg.dev/alexei-dev/libraries/
+  _LIBRARY_REGISTRY_QA: https://us-python.pkg.dev/alexei-qa/libraries/
+  _LIBRARY_REGISTRY_PROD: https://us-python.pkg.dev/alexei-prod/libraries/
