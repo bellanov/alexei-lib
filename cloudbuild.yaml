@@ -12,17 +12,15 @@ steps:
         # Install dependencies
         pip install -r requirements.txt --user
 
-  # Run unit tests
-  - name: python:3.9-buster
-    entrypoint: python
-    args: ["-m", "tox"]
+        # Execute build workflow
+        python -m tox
 
   # Capture results
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: bash
     args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
 
-  # Publish results
+  # Publish test results
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: bash
     args:
