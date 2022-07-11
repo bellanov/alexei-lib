@@ -78,7 +78,7 @@ steps:
         python -m build
 
         echo "Publishing release..."
-        ls -la dist/
+        ls -la
 
 substitutions:
 
