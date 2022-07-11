@@ -18,6 +18,9 @@ steps:
         # Capture test results
         cp coverage/junit.xml ${SHORT_SHA}_test_log.xml
 
+        # Build release
+        python -m build
+
   - id: Publish Test Results
     name: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
     entrypoint: bash
@@ -74,11 +77,8 @@ steps:
         _LIBRARY_REGISTRY=$(cat release_registry)
         echo "$${_LIBRARY_REGISTRY}"
 
-        echo "Building release..."
-        python -m build
-
         echo "Publishing release..."
-        ls -la
+        ls -la dist/
 
 substitutions:
 
