@@ -51,7 +51,43 @@ steps:
         echo "Publishing test results..."
         gsutil cp ${SHORT_SHA}_test_log.xml gs://$${_LOG_BUCKET}
 
+  # Publish release
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+    - '-c'
+    - |
+        if [ $PROJECT_ID == "alexei-dev" ]
+        then
+          echo "${_LIBRARY_REPOS_DEV}" > release_repos
+        fi
+
+        if [ $PROJECT_ID == "alexei-qa" ]
+        then
+          echo "${_LIBRARY_REPOS_QA}" > release_repos
+        fi
+
+        if [ $PROJECT_ID == "alexei-prod" ]
+        then
+          echo "${_LIBRARY_REPOS_PROD}" > release_repos
+        fi
+
+        echo "Establishing test results..."
+        echo ${SHORT_SHA}_test_log.xml
+
+        echo "Establishing logs bucket..."
+        _LOG_BUCKET=$(cat log_bucket)
+        echo "$${_LOG_BUCKET}"
+
+        echo "Publishing test results..."
+        gsutil cp ${SHORT_SHA}_test_log.xml gs://$${_LOG_BUCKET}
+
 substitutions:
+
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
   _LOG_BUCKET_QA: logs-j4tztbeljefbpvo
   _LOG_BUCKET_PROD: logs-nfrjp2w3vyrt9xp
+
+  _LIBRARY_REPOS_DEV: path_to_dev_repos
+  _LIBRARY_REPOS_QA: path_to_qa_repos
+  _LIBRARY_REPOS_PROD: path_to_prod_repos
