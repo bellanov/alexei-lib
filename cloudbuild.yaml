@@ -60,7 +60,7 @@ steps:
         gsutil cp ${SHORT_SHA}_test_log.xml gs://$${_LOG_BUCKET}
 
         echo "Publishing release..."
-        gsutil cp dist/alexei-lib-${TAG_NAME}.tar.gz gs://$${_RELEASE_BUCKET}
+        gsutil cp dist/* gs://$${_RELEASE_BUCKET}
 
 substitutions:
 
