@@ -50,7 +50,7 @@ steps:
         gsutil cp ${SHORT_SHA}_test_log.xml gs://$${_LOG_BUCKET}
 
   - id: Publish Release
-    name: python:3.9-buster
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
     entrypoint: bash
     args:
     - '-c'
@@ -78,7 +78,7 @@ steps:
         python -m tox -e build
 
         echo "Publishing release..."
-        python -m twine upload --verbose --repository-url "$${_LIBRARY_REGISTRY}" dist/*
+        ls -la dist/*
 
 substitutions:
 
