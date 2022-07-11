@@ -1,9 +1,12 @@
 steps:
 
-  # Substitute the version
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  # Unit tests
+  - name: python:3.9-buster
     entrypoint: bash
-    args: ["-c", "sed -i 's/%VERSION%/'$TAG_NAME'/g' setup.cfg"]
+    args:
+    - '-c'
+    - |
+        sed -i 's/%VERSION%/'$TAG_NAME'/g' setup.cfg
     
   # Install dependencies
   - name: python:3.9-buster
