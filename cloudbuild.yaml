@@ -1,7 +1,7 @@
 steps:
 
-  # Unit tests
-  - name: python:3.9-buster
+  - id: Unit Tests
+    name: python:3.9-buster
     entrypoint: bash
     args:
     - '-c'
@@ -15,13 +15,11 @@ steps:
         # Execute build workflow
         python -m tox
 
-  # Capture results
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
-    entrypoint: bash
-    args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
+        # Capture test results
+        cp coverage/junit.xml ${SHORT_SHA}_test_log.xml
 
-  # Publish test results
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  - id: Publish Test Results
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: bash
     args:
     - '-c'
