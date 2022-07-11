@@ -49,8 +49,8 @@ steps:
         echo "Publishing test results..."
         gsutil cp ${SHORT_SHA}_test_log.xml gs://$${_LOG_BUCKET}
 
-  # Publish release
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  - id: Publish Release
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: bash
     args:
     - '-c'
