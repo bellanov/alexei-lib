@@ -49,7 +49,7 @@ steps:
         echo "Publishing test results..."
         gsutil cp ${SHORT_SHA}_test_log.xml gs://$${_LOG_BUCKET}
 
-  - id: Publish Release
+  - id: Establish Library Registry
     name: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
     entrypoint: bash
     args:
@@ -74,8 +74,11 @@ steps:
         _LIBRARY_REGISTRY=$(cat release_registry)
         echo "$${_LIBRARY_REGISTRY}"
 
-        echo "Publishing release..."
-        twine upload --repository-url "$${_LIBRARY_REGISTRY}" dist/*
+  - id: Publish Release
+    name: python:3.9-buster
+    entrypoint: twine
+    args: ["-c", "upload", "--repository-url", "$${_LIBRARY_REGISTRY}", "dist/*"]
+
 
 substitutions:
 
