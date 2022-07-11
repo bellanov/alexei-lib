@@ -76,9 +76,13 @@ steps:
 
   - id: Publish Release
     name: python:3.9-buster
-    entrypoint: twine
-    args: ["-c", "upload", "--repository-url", "$${_LIBRARY_REGISTRY}", "dist/*"]
-
+    entrypoint: bash
+    args:
+    - '-c'
+    - |
+        echo "Publishing release..."
+        echo "Registry: $${_LIBRARY_REGISTRY}"
+        twine upload --repository-url "$${_LIBRARY_REGISTRY}" dist/*
 
 substitutions:
 
