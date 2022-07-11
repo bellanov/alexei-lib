@@ -75,7 +75,7 @@ steps:
         echo "$${_LIBRARY_REGISTRY}"
 
         echo "Building release..."
-        python -m tox -e build
+        python -m build
 
         echo "Publishing release..."
         ls -la dist/
