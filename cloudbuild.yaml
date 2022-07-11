@@ -78,7 +78,7 @@ steps:
         python -m tox -e build
 
         echo "Publishing release..."
-        ls -la dist/*
+        ls -la dist/
 
 substitutions:
 
