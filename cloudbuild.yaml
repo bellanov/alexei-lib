@@ -19,7 +19,7 @@ steps:
         cp coverage/junit.xml ${SHORT_SHA}_test_log.xml
 
   - id: Publish Test Results
-    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
     entrypoint: bash
     args:
     - '-c'
@@ -50,7 +50,7 @@ steps:
         gsutil cp ${SHORT_SHA}_test_log.xml gs://$${_LOG_BUCKET}
 
   - id: Publish Release
-    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
     entrypoint: bash
     args:
     - '-c'
