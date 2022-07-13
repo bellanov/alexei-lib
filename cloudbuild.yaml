@@ -42,7 +42,7 @@ steps:
         if [ $PROJECT_ID == "alexei-prod" ]
         then
           echo "${_LOG_BUCKET_PROD}" > log_bucket
-          echo "${_RELEASE_BUCKET_QA}" > release_bucket
+          echo "${_RELEASE_BUCKET_PROD}" > release_bucket
         fi
 
         echo "Establishing test results..."
