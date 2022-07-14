@@ -3,8 +3,11 @@
 
 def bootstrap_terraform_project():
     """Bootstrap a Terraform project."""
-    # Grab template
+    # Grab template from bucket with prefix /templates/terraform/
 
-    # dev
-    # qa
-    # prod
+    # Files:
+    # client.tf
+    # outputs.tf
+    # variables.tf
+    # backend.tf
+    # terraform.tfvars
