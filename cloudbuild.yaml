@@ -45,6 +45,11 @@ steps:
           echo "${_RELEASE_BUCKET_PROD}" > release_bucket
         fi
 
+        if [ $PROJECT_ID == "alexei-prod" ]
+        then
+          echo "${_LOG_BUCKET_PROD}" > log_bucket
+        fi
+
         echo "Establishing test results..."
         echo ${SHORT_SHA}_test_log.xml
 
@@ -76,3 +81,4 @@ substitutions:
   _RELEASE_BUCKET_DEV: releases-tzq74vtfsacaprg
   _RELEASE_BUCKET_QA: releases-e7hc2mjcf4grgxd
   _RELEASE_BUCKET_PROD: releases-piclewkjpnv678n
+
