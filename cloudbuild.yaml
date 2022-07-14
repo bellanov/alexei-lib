@@ -1,27 +1,28 @@
 steps:
 
-  # Substitute the version
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+  - id: Unit Tests
+    name: python:3.9-buster
     entrypoint: bash
-    args: ["-c", "sed -i 's/%VERSION%/'$TAG_NAME'/g' setup.cfg"]
-    
-  # Install dependencies
-  - name: python:3.9-buster
-    entrypoint: pip
-    args: ["install", "-r", "requirements.txt", "--user"]
+    args:
+    - '-c'
+    - |
+        # Substitute tag name / version
+        sed -i 's/%VERSION%/'$TAG_NAME'/g' setup.cfg
 
-  # Run unit tests
-  - name: python:3.9-buster
-    entrypoint: python
-    args: ["-m", "tox"]
+        # Install dependencies
+        pip install -r requirements.txt --user
 
-  # Capture results
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
-    entrypoint: bash
-    args: ["-c", "cp coverage/junit.xml ${SHORT_SHA}_test_log.xml"]
+        # Execute build workflow
+        python -m tox
 
-  # Publish results
-  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+        # Capture test results
+        cp coverage/junit.xml ${SHORT_SHA}_test_log.xml
+
+        # Build release
+        python -m build
+
+  - id: Publish
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:alpine
     entrypoint: bash
     args:
     - '-c'
@@ -29,11 +30,19 @@ steps:
         if [ $PROJECT_ID == "alexei-dev" ]
         then
           echo "${_LOG_BUCKET_DEV}" > log_bucket
+          echo "${_RELEASE_BUCKET_DEV}" > release_bucket
         fi
 
         if [ $PROJECT_ID == "alexei-qa" ]
         then
           echo "${_LOG_BUCKET_QA}" > log_bucket
+          echo "${_RELEASE_BUCKET_QA}" > release_bucket
+        fi
+
+        if [ $PROJECT_ID == "alexei-prod" ]
+        then
+          echo "${_LOG_BUCKET_PROD}" > log_bucket
+          echo "${_RELEASE_BUCKET_PROD}" > release_bucket
         fi
 
         if [ $PROJECT_ID == "alexei-prod" ]
@@ -48,10 +57,28 @@ steps:
         _LOG_BUCKET=$(cat log_bucket)
         echo "$${_LOG_BUCKET}"
 
+        echo "Establishing release bucket..."
+        _RELEASE_BUCKET=$(cat release_bucket)
+        echo "$${_RELEASE_BUCKET}"
+
         echo "Publishing test results..."
         gsutil cp ${SHORT_SHA}_test_log.xml gs://$${_LOG_BUCKET}
 
+        echo "Publishing release..."
+        gsutil cp dist/* gs://$${_RELEASE_BUCKET}
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 substitutions:
+
+  # Logs
   _LOG_BUCKET_DEV: logs-hmjbvyp8eqyefrh
   _LOG_BUCKET_QA: logs-j4tztbeljefbpvo
   _LOG_BUCKET_PROD: logs-nfrjp2w3vyrt9xp
+
+  # Releases
+  _RELEASE_BUCKET_DEV: releases-tzq74vtfsacaprg
+  _RELEASE_BUCKET_QA: releases-e7hc2mjcf4grgxd
+  _RELEASE_BUCKET_PROD: releases-piclewkjpnv678n
+
